@@ -1,0 +1,72 @@
+<canvas width="600" height="1000"></canvas>
+
+<script>
+
+    function dibujarRectangulo(x, y, base, altura, color) {
+        var pantalla = document.querySelector("canvas");
+        var pincel = pantalla.getContext("2d");
+
+        pincel.fillStyle=color;
+        pincel.fillRect(x,y, base, altura);
+        pincel.strokeStyle="black";
+        pincel.strokeRect(x,y, base, altura);
+    }
+
+    function escribirTexto(x , y, texto) {
+        var pantalla = document.querySelector("canvas");
+        var pincel = pantalla.getContext("2d");
+
+        pincel.font="30px Georgia";
+        pincel.fillStyle="black";
+        pincel.fillText(texto, x, y);    
+    }
+
+    
+    
+    function altura_rectangulo(serie,altura){
+        var tamanio =[];
+        for(var pos=0;pos<serie.length;pos++){
+            var resultado = (serie[pos]*altura)/100;
+            tamanio.push(resultado);
+        }
+        return tamanio;
+    }
+
+
+    
+    function dibujarBarra(x, y, colores) {
+        //Aquí necesitamos escribir el texto y dibujar los rectángulos
+        escribirTexto(x, y - 30, "2009");
+
+        for(var pos_serie=0; pos_serie<porcentajes_uno.length;pos_serie++){
+                       
+            dibujarRectangulo(x,y,base, porcentajes_uno[pos_serie],colores[pos_serie]);
+            y=y+porcentajes_uno[pos_serie];
+             
+        }
+        x=350;
+        y=50;
+        escribirTexto(x, y - 30, "2019");
+        for(var pos_serie=0; pos_serie<porcentajes_dos.length;pos_serie++){
+                       
+            dibujarRectangulo(x,y,base, porcentajes_dos[pos_serie],colores[pos_serie]);
+            y=y+porcentajes_dos[pos_serie];
+                        
+        }
+
+        
+    }
+
+    var serie2009 = [6, 47, 41, 3, 3];
+    var serie2019 = [81, 9, 3, 3, 4];
+    var colores = ["blue","green","yellow", "red","gray"];
+    //se puede cambiar dinamicamente la altura y anchura de las graficas
+    var altura=600;
+    var base = 200;
+    var x=50;
+    var y=50;
+    var porcentajes_uno = altura_rectangulo(serie2009,altura);
+    var porcentajes_dos = altura_rectangulo(serie2019,altura);
+    dibujarBarra(x,y,colores);
+
+</script>
